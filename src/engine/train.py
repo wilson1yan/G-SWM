@@ -137,14 +137,14 @@ def train(cfg):
                                      num_gen=cfg.vis.num_gen)
                 print('Visualization takes {:.4f}s.'.format(time.perf_counter() - start))
                 
-            if (global_step + 1) % cfg.val.val_every == 0 and cfg.val.ison:
-                print('Doing evaluation...')
-                start = time.perf_counter()
-                evaluator.train_eval(evaluator, os.path.join(cfg.evaldir, cfg.exp_name), cfg.val.metrics, cfg.val.eval_types,
-                                     cfg.val.intervals, cfg.val.cond_steps, model, valset, valloader,
-                                     cfg.device, writer, global_step,
-                                     [model, optimizer, epoch, global_step], checkpointer)
-                print('Evaluation takes {:.4f}s.'.format(time.perf_counter() - start))
+            #if (global_step + 1) % cfg.val.val_every == 0 and cfg.val.ison:
+            #    print('Doing evaluation...')
+            #    start = time.perf_counter()
+            #    evaluator.train_eval(evaluator, os.path.join(cfg.evaldir, cfg.exp_name), cfg.val.metrics, cfg.val.eval_types,
+            #                         cfg.val.intervals, cfg.val.cond_steps, model, valset, valloader,
+            #                         cfg.device, writer, global_step,
+            #                         [model, optimizer, epoch, global_step], checkpointer)
+            #    print('Evaluation takes {:.4f}s.'.format(time.perf_counter() - start))
             
             start = time.perf_counter()
             global_step += 1

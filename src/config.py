@@ -42,6 +42,7 @@ cfg = CfgNode({
         'OBJ3D': '../data/OBJ3D',
         'SINGLE_BALL': '../data/SINGLE_BALL',
         'MAZE': '../data/MAZE',
+        'ROT': '../data/ROT',
     },
     
     'solver': {
