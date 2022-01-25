@@ -46,12 +46,12 @@ class CATER(Dataset):
     def __getitem__(self, idx):
         start = self._idx[idx] 
         end = self._idx[idx + 1] if idx < len(self._idx) - 1 else len(self._images)
-        if end - start > self.sequence_length:
+        if end - start > self.sample_length:
             start = start + np.random.randint(low=0, high=end - start - self.sample_length)
-        assert start < start + self.sequence_length <= end, f'{start}, {end}'
-        video = torch.tensor(self._images[start:start + self.sequence_length])
+        assert start < start + self.sample_length <= end, f'{start}, {end}'
+        video = torch.tensor(self._images[start:start + self.sample_length])
         video = video.float() / 255.
-        video = video.movedim(-1, 1)
+        video = video.permute(0, 3, 1, 2).contiguous()
         
-        return video
+        return video, torch.tensor(0.)
     
