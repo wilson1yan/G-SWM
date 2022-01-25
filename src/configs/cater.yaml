@@ -3,15 +3,9 @@ run_num: 1
 model: 'GSWM'
 resume: true
 resume_ckpt: ''
-<<<<<<< HEAD
 parallel: true
 device_ids: [6, 7]
 device: 'cuda:6'
-=======
-parallel: false
-device_ids: [0, 1]
-device: 'cuda:0'
->>>>>>> 4092d53265374fa00e9be8ea7acc0dfdd10c5597
 logdir: '../output/logs'
 checkpointdir: '../output/checkpoints'
 evaldir: '../output/eval'
