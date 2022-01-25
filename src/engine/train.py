@@ -25,6 +25,10 @@ from visualize import get_vislogger
 from evaluate import get_evaluator
 
 
+def compute_total_params(model):
+    return sum([np.prod(p.shape) for p in model.parameters() if p.requires_grad])
+
+
 def train(cfg):
     torch.manual_seed(cfg.seed)
     np.random.seed(cfg.seed)
@@ -59,6 +63,8 @@ def train(cfg):
     model = model.to(cfg.device)
     print('Model initialized.')
     model.train()
+
+    print('Total params:', compute_total_params(model))
     
     optimizer = get_optimizer(cfg, model)
     
