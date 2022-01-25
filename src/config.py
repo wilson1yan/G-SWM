@@ -44,6 +44,7 @@ cfg = CfgNode({
         'MAZE': '../data/MAZE',
         'ROT': '../data/ROT',
         'CATER': '../data/cater_mov.hdf5',
+        'MOVi': '../data/movi.hdf5'
     },
     
     'solver': {

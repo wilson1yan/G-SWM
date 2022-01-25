@@ -14,7 +14,7 @@ resultdir: '../output/results'
 dataset: 'CATER'
 
 dataset_roots:
-  CATER: '../data/cater_mov.hdf5'
+  MOVi: '../data/movi.hdf5'
 
 solver:
   optim: 'Adam'

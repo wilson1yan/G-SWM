@@ -33,6 +33,9 @@ def get_dataset(cfg, mode):
     if cfg.dataset == 'CATER':
         from .cater import CATER
         return CATER(cfg.dataset_roots.CATER, mode)
+    if cfg.dataset == 'MOVi':
+        from .movi import MOVi
+        return MOVi(cfg.dataset_roots.MOVi, mode)
     else:
         raise ValueError(f'Dataset "{cfg.dataset}" not defined in dataset.__init__.py')
 

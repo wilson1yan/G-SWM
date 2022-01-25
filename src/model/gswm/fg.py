@@ -5,7 +5,7 @@ import math
 from torch.nn import functional as F
 from torch import nn
 from torch.distributions import RelaxedBernoulli, Normal, kl_divergence
-from torchvision.models import resnet18
+from torchvision.models import resnet50, resnet18
 
 from .module import MLP, gaussian_kernel_2d, kl_divergence_bern_bern, \
     BatchApply, transform_tensors, anneal, MultiLayerSubpixel, MultiLayerConv
@@ -1116,7 +1116,7 @@ class ImgEncoder(nn.Module):
         # 3 + 3 = 6
         self.conv1 = nn.Conv2d(6, 64, kernel_size=7, stride=2, padding=3, bias=False)
         
-        resnet = resnet18()
+        resnet = resnet50()
         self.enc = nn.Sequential(
             self.conv1,
             resnet.bn1,
