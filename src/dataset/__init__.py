@@ -30,6 +30,9 @@ def get_dataset(cfg, mode):
         from .rot import Rot
         root = osp.join(cfg.dataset_roots.ROT)
         return Rot(root, mode)
+    if cfg.dataset == 'CATER':
+        from .cater import CATER
+        return CATER(cfg.dataset_roots.CATER, mode)
     else:
         raise ValueError(f'Dataset "{cfg.dataset}" not defined in dataset.__init__.py')
 
