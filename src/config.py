@@ -43,6 +43,7 @@ cfg = CfgNode({
         'SINGLE_BALL': '../data/SINGLE_BALL',
         'MAZE': '../data/MAZE',
         'ROT': '../data/ROT',
+        'CATER': '../data/cater_mov.hdf5',
     },
     
     'solver': {
