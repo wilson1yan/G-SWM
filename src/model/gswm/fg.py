@@ -1313,7 +1313,7 @@ class ProposalEncoder(nn.Module):
         self.enc = nn.Sequential(
             nn.Conv2d(3, ch, 3, 2, 1),
             nn.CELU(),
-            nn.GroupNorm(1, 16),
+            nn.GroupNorm(1, ch),
             nn.Conv2d(ch, 2 * ch, 3, 2, 1),
             nn.CELU(),
             nn.GroupNorm(2, 2 * ch),
@@ -1385,7 +1385,7 @@ class GlimpseDecoder(nn.Module):
         B, D = z_what.size()
         x = F.celu(self.fc(z_what))
         # (B, 128, E, E)
-        x = x.view(B, 128, self.embed_size, self.embed_size)
+        x = x.view(B, 512, self.embed_size, self.embed_size)
         x = self.net(x)
         x = torch.sigmoid(x)
         # (B, 3, H, W), (B, 1, H, W)

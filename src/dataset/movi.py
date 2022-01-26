@@ -51,7 +51,7 @@ class MOVi(Dataset):
         assert start < start + self.sample_length <= end, f'{start}, {end}'
         video = torch.tensor(self._images[start:start + self.sample_length])
         video = video.float() / 255.
-        video = video.movedim(-1, 1)
+        video = video.permute(0, 3, 1, 2).contiguous()
         
         return video, torch.tensor(0.)
     

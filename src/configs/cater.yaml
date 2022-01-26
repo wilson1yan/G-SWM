@@ -26,7 +26,7 @@ vis:
   indices: [0, 1, 2, 3]
 
 train:
-  batch_size: 65
+  batch_size: 64
   max_epochs: 1000000
   max_steps: 1000000
   print_every: 1000
@@ -53,8 +53,8 @@ ARCH:
   BG_CONDITIONED: True
   BG_ATTENTION: True
   G: 8
-  T: [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
-  T_MILESTONES: [10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000]
+  T: [2, 4, 6, 8]
+  T_MILESTONES: [10000, 20000, 30000]
   TAU_START_VALUE: 1.0
   TAU_END_VALUE: 1.0
   TAU_START_STEP: 1000
