@@ -1116,7 +1116,7 @@ class ImgEncoder(nn.Module):
         # 3 + 3 = 6
         self.conv1 = nn.Conv2d(6, 64, kernel_size=7, stride=2, padding=3, bias=False)
         
-        resnet = resnet50()
+        resnet = resnet18()
         self.enc = nn.Sequential(
             self.conv1,
             resnet.bn1,

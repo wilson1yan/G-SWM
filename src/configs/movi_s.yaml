@@ -4,8 +4,8 @@ model: 'GSWM'
 resume: true
 resume_ckpt: ''
 parallel: true
-device_ids: [4, 5]
-device: 'cuda:4'
+device_ids: [2, 3]
+device: 'cuda:2'
 logdir: '../output/logs'
 checkpointdir: '../output/checkpoints'
 evaldir: '../output/eval'
