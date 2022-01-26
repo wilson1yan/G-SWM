@@ -40,7 +40,7 @@ val:
   val_every: 5000
   batch_size: 16
   num_workers: 4
-  cond_steps: 10
+  cond_steps: 1
   eval_types: ['generation', 'tracking']
   metrics: ['med', 'mot_iou']
 

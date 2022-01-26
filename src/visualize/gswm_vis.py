@@ -213,10 +213,10 @@ class GSWMVis:
     def train_vis(self, model, dataset, writer: SummaryWriter, global_step, indices, device, cond_steps, fg_sample, bg_sample, num_gen):
 
         
-        grid, gif = self.show_tracking(model, dataset, indices, device)
-        writer.add_image('tracking/grid', grid, global_step)
-        for i in range(len(gif)):
-            writer.add_video(f'tracking/video_{i}', gif[i:i+1], global_step)
+        # grid, gif = self.show_tracking(model, dataset, indices, device)
+        # writer.add_image('tracking/grid', grid, global_step)
+        # for i in range(len(gif)):
+        #     writer.add_video(f'tracking/video_{i}', gif[i:i+1], global_step)
 
         # Generation
         grid, gif = self.show_generation(model, dataset, indices, device, cond_steps, fg_sample=fg_sample, bg_sample=bg_sample, num=num_gen)

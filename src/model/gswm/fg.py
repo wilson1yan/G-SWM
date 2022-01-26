@@ -1112,11 +1112,11 @@ class ImgEncoder(nn.Module):
         # last_stride = 1 if ARCH.G == 8 else 2
 
 
-        self.last = nn.Conv2d(256, ARCH.IMG_ENC_DIM, 3, last_stride, 1)
+        self.last = nn.Conv2d(1024, ARCH.IMG_ENC_DIM, 3, last_stride, 1)
         # 3 + 3 = 6
         self.conv1 = nn.Conv2d(6, 64, kernel_size=7, stride=2, padding=3, bias=False)
         
-        resnet = resnet18()
+        resnet = resnet50()
         self.enc = nn.Sequential(
             self.conv1,
             resnet.bn1,
@@ -1309,22 +1309,23 @@ class ProposalEncoder(nn.Module):
     def __init__(self):
         nn.Module.__init__(self)
         embed_size = ARCH.GLIMPSE_SIZE // 16
+        ch = 32
         self.enc = nn.Sequential(
-            nn.Conv2d(3, 16, 3, 2, 1),
+            nn.Conv2d(3, ch, 3, 2, 1),
             nn.CELU(),
             nn.GroupNorm(1, 16),
-            nn.Conv2d(16, 32, 3, 2, 1),
+            nn.Conv2d(ch, 2 * ch, 3, 2, 1),
             nn.CELU(),
-            nn.GroupNorm(2, 32),
-            nn.Conv2d(32, 64, 3, 2, 1),
+            nn.GroupNorm(2, 2 * ch),
+            nn.Conv2d(2 * ch, 4 * ch, 3, 2, 1),
             nn.CELU(),
-            nn.GroupNorm(4, 64),
-            nn.Conv2d(64, 128, 3, 2, 1),
+            nn.GroupNorm(4, 4 * ch),
+            nn.Conv2d(4 * ch, 8 * ch, 3, 2, 1),
             nn.CELU(),
-            nn.GroupNorm(8, 128),
+            nn.GroupNorm(8, 8 * ch),
         )
         
-        self.enc_what = nn.Linear(128 * embed_size ** 2, ARCH.PROPOSAL_ENC_DIM)
+        self.enc_what = nn.Linear(8 * ch * embed_size ** 2, ARCH.PROPOSAL_ENC_DIM)
     
     def forward(self, x):
         """
@@ -1348,26 +1349,27 @@ class GlimpseDecoder(nn.Module):
         nn.Module.__init__(self)
         # Everything here is symmetric to encoder, but with subpixel upsampling
         
+        ch = 256
         self.embed_size = ARCH.GLIMPSE_SIZE // 16
-        self.fc = nn.Linear(ARCH.Z_WHAT_DIM, self.embed_size ** 2 * 128)
+        self.fc = nn.Linear(ARCH.Z_WHAT_DIM, self.embed_size ** 2 * 512)
         self.net = nn.Sequential(
-            nn.Conv2d(128, 64 * 2 * 2, 3, 1, 1),
+            nn.Conv2d(512, ch * 2 * 2, 3, 1, 1),
             nn.PixelShuffle(2),
             nn.CELU(),
-            nn.GroupNorm(4, 64),
+            nn.GroupNorm(4, ch),
             
-            nn.Conv2d(64, 32 * 2 * 2, 3, 1, 1),
+            nn.Conv2d(ch, ch // 2 * 2 * 2, 3, 1, 1),
             nn.PixelShuffle(2),
             nn.CELU(),
-            nn.GroupNorm(2, 32),
+            nn.GroupNorm(2, ch // 2),
             
-            nn.Conv2d(32, 16 * 2 * 2, 3, 1, 1),
+            nn.Conv2d(ch // 2, ch // 4 * 2 * 2, 3, 1, 1),
             nn.PixelShuffle(2),
             nn.CELU(),
-            nn.GroupNorm(1, 16),
+            nn.GroupNorm(1, ch // 4),
             
             # Mask and appearance
-            nn.Conv2d(16, 4 * 2 * 2, 3, 1, 1),
+            nn.Conv2d(ch // 4, 4 * 2 * 2, 3, 1, 1),
             nn.PixelShuffle(2),
         )
     

@@ -91,7 +91,7 @@ cfg = CfgNode({
     
     'vis': {
         'ison': True,
-        'cond_steps': 5,
+        'cond_steps': 1,
         'vis_every': 1000,
         'indices': [0, 1, 2, 3],
         'fg_sample': True,
