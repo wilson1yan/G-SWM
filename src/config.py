@@ -86,7 +86,7 @@ cfg = CfgNode({
         'metrics': ['mot_iou', 'mot_dist', 'med'],
         'eval_types': ['tracking', 'generation'],
         'intervals': [[k, k+10] for k in range(10, 100+1, 10)],
-        'cond_steps': 10,
+        'cond_steps': 1,
     },
     
     'vis': {
